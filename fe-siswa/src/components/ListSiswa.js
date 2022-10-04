@@ -1,33 +1,29 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function ListSiswa() {
   const [siswa, setSiswa] = useState([]);
-  const { id } = useParams();
 
   useEffect(() => {
     getSiswa();
   }, []);
 
   const getSiswa = async () => {
-    const response = await axios.get("http://localhost:3000/siswa/");
+    const response = await axios.get("http://localhost:3000/siswa");
     console.log(response.data.data);
     setSiswa(response.data.data);
   };
 
-  const deleteSiswa = async () => {
+  const deleteSiswa = async (id) => {
     await axios.delete(`http://localhost:3000/siswa/${id}`);
     getSiswa();
   };
 
   return (
     <div className='container mt-5'>
-      {/* <Button href='#' variant='outline-success' className='float-start mb-3'>
-        Add New
-      </Button> */}
       <Link className='btn btn-outline-success float-start mb-3 outline-success' to='/add'>
         Add New
       </Link>
@@ -39,6 +35,8 @@ export default function ListSiswa() {
             <th>Kelas</th>
             <th>Jurusan</th>
             <th>No Telepon</th>
+            <th>Created At</th>
+            <th>Updated At</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -50,31 +48,18 @@ export default function ListSiswa() {
               <td>{sw.kelas}</td>
               <td>{sw.jurusan}</td>
               <td>{sw.noTelp}</td>
+              <td>{sw.createdAt}</td>
+              <td>{sw.updatedAt}</td>
               <td>
                 <Link to={`/edit/${sw.id}`} className='btn btn-primary me-2 btn-sm'>
                   Edit
                 </Link>
-                <Button variant='danger' size='sm' onClick={() => deleteSiswa(sw.id)}>
+                <Button onClick={() => deleteSiswa(sw.id)} variant='danger' size='sm'>
                   Delete
                 </Button>
               </td>
             </tr>
           ))}
-          {/* <tr>
-            <td>1</td>
-            <td>Joe</td>
-            <td>11 IPA 3</td>
-            <td>IPA</td>
-            <td>087123456789</td>
-            <td>
-              <Link to='/edit' className='btn btn-primary me-2 btn-sm'>
-                Edit
-              </Link>
-              <Button variant='danger' size='sm'>
-                Delete
-              </Button>
-            </td>
-          </tr> */}
         </tbody>
       </Table>
     </div>
