@@ -32,7 +32,14 @@ module.exports = {
   addSiswa: async (req, res, next) => {
     try {
       const { nama, kelas, jurusan, noTelp } = req.body;
-      const siswa = await Siswa.create({ nama, kelas, jurusan, noTelp });
+
+      const date = new Date();
+      const arrive = date.toLocaleTimeString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+      const siswa = await Siswa.create({ nama, kelas, jurusan, noTelp, arrive });
 
       res.json({
         message: "Success add siswa",

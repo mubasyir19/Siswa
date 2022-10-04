@@ -35,8 +35,7 @@ export default function ListSiswa() {
             <th>Kelas</th>
             <th>Jurusan</th>
             <th>No Telepon</th>
-            <th>Created At</th>
-            <th>Updated At</th>
+            <th>Jam Datang</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -48,8 +47,7 @@ export default function ListSiswa() {
               <td>{sw.kelas}</td>
               <td>{sw.jurusan}</td>
               <td>{sw.noTelp}</td>
-              <td>{sw.createdAt}</td>
-              <td>{sw.updatedAt}</td>
+              <td>{sw.arrive}</td>
               <td>
                 <Link to={`/edit/${sw.id}`} className='btn btn-primary me-2 btn-sm'>
                   Edit
